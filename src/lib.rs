@@ -70,9 +70,3 @@ impl Display for Complex {
         write!(f, "{} + {}i", self.real, self.imaginary)
     }
 }
-
-fn main() {
-    let a = Complex::new(1, 1);
-    let b = Complex::new(3, 4);
-    println!("{}", a + b)
-}

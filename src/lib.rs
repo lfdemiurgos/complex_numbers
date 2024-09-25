@@ -3,7 +3,7 @@ use std::{
     ops::{Add, Mul, Sub},
 };
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 struct Complex {
     real: i32,
     imaginary: i32,
@@ -60,7 +60,7 @@ impl Mul for Complex {
         let d = rhs.imaginary;
         Self {
             real: a * c - b * d,
-            imaginary: a * d - b * c,
+            imaginary: a * d + b * c,
         }
     }
 }
@@ -68,5 +68,36 @@ impl Mul for Complex {
 impl Display for Complex {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{} + {}i", self.real, self.imaginary)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::Complex;
+
+    #[test]
+    fn test_add() {
+        let a = Complex::new(1, 1);
+        let b = Complex::new(3, 4);
+        let c = a + b;
+        println!("{c}");
+        assert!(c == Complex::new(4, 5))
+    }
+
+    #[test]
+    fn test_sub() {
+        let a = Complex::new(3, -1);
+        let b = Complex::new(2, 3);
+        let c = a - b;
+        println!("{c}");
+        assert!(c == Complex::new(1, -4))
+    }
+    #[test]
+    fn test_mul() {
+        let a = Complex::new(0, 2);
+        let b = Complex::new(0, 4);
+        let c = a * b;
+        println!("{c}");
+        assert!(c == Complex::new(-8, 0))
     }
 }
